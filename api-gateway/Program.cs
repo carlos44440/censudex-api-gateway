@@ -1,5 +1,6 @@
 using System.Text;
 using api_gateway.Src.Helpers;
+using ClientsService.Grpc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
@@ -18,37 +19,46 @@ builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "API Gateway",
-        Version = "v1",
-        Description = "API Gateway for microservices using gRPC and HTTP"
-    });
-
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter your JWT token in the text input below.\nExample: Bearer {your token}"
-    });
-
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
+    options.SwaggerDoc(
+        "v1",
+        new OpenApiInfo
         {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
+            Title = "API Gateway",
+            Version = "v1",
+            Description = "API Gateway for microservices using gRPC and HTTP",
         }
-    });
+    );
+
+    options.AddSecurityDefinition(
+        "Bearer",
+        new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description =
+                "Enter your JWT token in the text input below.\nExample: Bearer {your token}",
+        }
+    );
+
+    options.AddSecurityRequirement(
+        new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer",
+                    },
+                },
+                new string[] { }
+            },
+        }
+    );
 });
 
 // var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")
@@ -81,13 +91,21 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddGrpcClient<Order.OrderClient>(options =>
 {
-    options.Address = new Uri(Environment.GetEnvironmentVariable("ORDER_SERVICE_URL") ?? "http://localhost:50051");
+    options.Address = new Uri(
+        Environment.GetEnvironmentVariable("ORDER_SERVICE_URL") ?? "http://localhost:50051"
+    );
+});
+
+builder.Services.AddGrpcClient<ClientsGrpc.ClientsGrpcClient>(options =>
+{
+    options.Address = new Uri(
+        Environment.GetEnvironmentVariable("CLIENT_SERVICE_URL") ?? "https://localhost:7181"
+    );
 });
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
-    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                              ForwardedHeaders.XForwardedProto;
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
