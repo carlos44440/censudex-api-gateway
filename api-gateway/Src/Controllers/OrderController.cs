@@ -21,15 +21,22 @@ namespace api_gateway.Src.Controllers
         }
 
         [HttpPost("createOrder")]
-        [Authorize(Roles = "CLIENT,ADMIN")]
+        // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderDto createOrder)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
             try
             {
-                var metadata = _userMetadataExtractor.Extract(User);
-
+                // var metadata = _userMetadataExtractor.Extract(User);
+                var metadata = new Metadata
+                {
+                    { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
+                    { "x-user-name", "Carlos Arauco Colque" },
+                    { "x-user-role", "CLIENT" },
+                    { "x-user-email", "carlos5132fc@gmail.com" }
+                };
+                
                 var createOrderRequest = new CreateOrderRequest{};
 
                 foreach (var item in createOrder.Items)
@@ -55,12 +62,19 @@ namespace api_gateway.Src.Controllers
         }
 
         [HttpGet("checkOrderStatus/{orderId}")]
-        [Authorize(Roles = "CLIENT,ADMIN")]
+        // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CheckOrderStatusAsync(string orderId)
         {
             try
             {
-                var metadata = _userMetadataExtractor.Extract(User);
+                // var metadata = _userMetadataExtractor.Extract(User);
+                var metadata = new Metadata
+                {
+                    { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
+                    { "x-user-name", "Carlos Arauco Colque" },
+                    { "x-user-role", "CLIENT" },
+                    { "x-user-email", "carlos5132fc@gmail.com" }
+                };
 
                 var checkOrderStatusRequest = new CheckOrderStatusRequest
                 {
@@ -80,7 +94,7 @@ namespace api_gateway.Src.Controllers
         }
 
         [HttpPut("updateOrderStatus/{orderId}")]
-        [Authorize(Roles = "ADMIN")]
+        // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateOrderStatusAsync(string orderId, [FromBody] UpdateOrderStatusDto updateOrderStatus)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -107,14 +121,21 @@ namespace api_gateway.Src.Controllers
         }
 
         [HttpPut("cancelOrder/{orderId}")]
-        [Authorize(Roles = "CLIENT,ADMIN")]
+        // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CancelOrderAsync(string orderId, [FromBody] CancelOrderDto cancelOrderDto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
             try
             {
-                var metadata = _userMetadataExtractor.Extract(User);
+                // var metadata = _userMetadataExtractor.Extract(User);
+                var metadata = new Metadata
+                {
+                    { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
+                    { "x-user-name", "Carlos" },
+                    { "x-user-role", "CLIENT" },
+                    { "x-user-email", "carlos5132fc@gmail.com" }
+                };
 
                 var requestCancelOrder = new RequestCancelOrder
                 {
@@ -142,21 +163,28 @@ namespace api_gateway.Src.Controllers
         }
 
         [HttpGet("getOrders")]
-        [Authorize(Roles = "CLIENT,ADMIN")]
+        // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> GetOrdersAsync([FromQuery] QueryObject queryObject)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
             try
             {
-                var metadata = _userMetadataExtractor.Extract(User);
+                // var metadata = _userMetadataExtractor.Extract(User);
+                var metadata = new Metadata
+                {
+                    { "x-user-id", "08975dbf-39a8-4d96-8c24-993057eef645" },
+                    { "x-user-name", "Carlos" },
+                    { "x-user-role", "CLIENT" },
+                    { "x-user-email", "carlos5132fc@gmail.com" }
+                };
 
                 var queryObjectOrder = new QueryObjectOrder
                 {
-                    OrderId = queryObject.OrderId,
-                    CustomerId = queryObject.CustomerId,
-                    InitialOrderDate = queryObject.InitialOrderDate.ToString(),
-                    FinalOrderDate = queryObject.FinalOrderDate.ToString()
+                    OrderId = queryObject.OrderId ?? "",
+                    CustomerId = queryObject.CustomerId ?? "",
+                    InitialOrderDate = queryObject.InitialOrderDate?.ToString() ?? "",
+                    FinalOrderDate = queryObject.FinalOrderDate?.ToString() ?? ""
                 };
 
                 var getOrdersRequest = new GetOrdersRequest

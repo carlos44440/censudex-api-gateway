@@ -51,31 +51,31 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")
-    ?? throw new InvalidOperationException("JWT_SECRET no está configurado");
+// var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")
+//     ?? throw new InvalidOperationException("JWT_SECRET no está configurado");
 
-var keyBytes = Encoding.UTF8.GetBytes(jwtSecret);
+// var keyBytes = Encoding.UTF8.GetBytes(jwtSecret);
 
-if (keyBytes.Length < 32)
-{
-    throw new InvalidOperationException(
-        $"JWT_SECRET debe tener al menos 32 caracteres. Actual: {keyBytes.Length}");
-}
+// if (keyBytes.Length < 32)
+// {
+//     throw new InvalidOperationException(
+//         $"JWT_SECRET debe tener al menos 32 caracteres. Actual: {keyBytes.Length}");
+// }
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
-            ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
-            IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
-        };
-    });
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(options =>
+//     {
+//         options.TokenValidationParameters = new TokenValidationParameters
+//         {
+//             ValidateIssuer = true,
+//             ValidateAudience = true,
+//             ValidateLifetime = true,
+//             ValidateIssuerSigningKey = true,
+//             ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+//             ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+//             IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
+//         };
+//     });
 
 builder.Services.AddAuthorization();
 
