@@ -18,6 +18,7 @@ namespace api_gateway.Src.Helpers
             var role = user.FindFirst("role")?.Value;
             var email = user.FindFirst("email")?.Value;
 
+            // Manda excepcion en caso de que el JWT no tenga todos los datos.
             if (userId is null || name is null || role is null || email is null)
                 throw new UnauthorizedAccessException("Token inválido o incompleto.");
 

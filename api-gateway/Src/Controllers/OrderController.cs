@@ -7,19 +7,38 @@ using OrderService;
 
 namespace api_gateway.Src.Controllers
 {
+    /// <summary>
+    /// Controlador para las llamadas al servicio grpc de order.
+    /// </summary>
     [ApiController]
     [Route("api/order")]
     public class OrderController : ControllerBase
     {
+        /// <summary>
+        /// Cliente grpc para la comunicacion con el servicio de order.
+        /// </summary>
         private readonly Order.OrderClient _orderGrpcClient;
+        /// <summary>
+        /// Servicio para extraer los datos del usuario del JWT.
+        /// </summary>
         private readonly UserMetadataExtractor _userMetadataExtractor;
 
+        /// <summary>
+        /// Instancia del controladro de order.
+        /// </summary>
+        /// <param name="orderGrpcClient">Cliente grpc del servicio de order.</param>
+        /// <param name="userMetadataExtractor">Servicio extractor de datos del usuario.</param>
         public OrderController(Order.OrderClient orderGrpcClient, UserMetadataExtractor userMetadataExtractor)
         {
             _orderGrpcClient = orderGrpcClient;
             _userMetadataExtractor = userMetadataExtractor;
         }
 
+        /// <summary>
+        /// Endpoint para crear un pedido.
+        /// </summary>
+        /// <param name="createOrder">Peticion con los datos para crear un pedido.</param>
+        /// <returns>Retorna 200 ok con el pedido creado en caso de exito o el error correspondiente en caso de fallo.</returns>
         [HttpPost("createOrder")]
         // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderDto createOrder)
@@ -28,6 +47,7 @@ namespace api_gateway.Src.Controllers
 
             try
             {
+                //Extraer los datos del usuario.
                 // var metadata = _userMetadataExtractor.Extract(User);
                 var metadata = new Metadata
                 {
@@ -53,7 +73,8 @@ namespace api_gateway.Src.Controllers
                 return Ok(response);
 
             } catch (RpcException ex){
-                return StatusCode((int)ex.StatusCode, new { message = ex.Status.Detail});
+                var httpStatus = GrpcErrorMapper.ToHttpStatusCode(ex.StatusCode);
+                return StatusCode(httpStatus, new { message = ex.Status.Detail});
             }
             catch(Exception ex)
             {
@@ -61,12 +82,18 @@ namespace api_gateway.Src.Controllers
             }
         }
 
+        /// <summary>
+        /// Endpoint para consultar el estado de un pedido.
+        /// </summary>
+        /// <param name="orderId">Id del pedido por consultar.</param>
+        /// <returns>Retorna 200 ok con el estado del pedido en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpGet("checkOrderStatus/{orderId}")]
         // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CheckOrderStatusAsync(string orderId)
         {
             try
             {
+                // Extraer los datos del usuario desde el JWT.
                 // var metadata = _userMetadataExtractor.Extract(User);
                 var metadata = new Metadata
                 {
@@ -86,13 +113,20 @@ namespace api_gateway.Src.Controllers
 
             } catch(RpcException ex)
             {
-                return StatusCode((int)ex.StatusCode, new { message = ex.Status.Detail });
+                var httpStatus = GrpcErrorMapper.ToHttpStatusCode(ex.StatusCode);
+                return StatusCode(httpStatus, new { message = ex.Status.Detail});
             } catch(Exception ex)
             {
                 return StatusCode(500, new { message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Actualizar el estado de un pedido.
+        /// </summary>
+        /// <param name="orderId">Id del pedido a actualizar.</param>
+        /// <param name="updateOrderStatus">Peticion con los datos necesarios para la actualizacion.</param>
+        /// <returns>Retorna 200 ok con el pedido actualizado en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpPut("updateOrderStatus/{orderId}")]
         // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateOrderStatusAsync(string orderId, [FromBody] UpdateOrderStatusDto updateOrderStatus)
@@ -112,7 +146,8 @@ namespace api_gateway.Src.Controllers
             }
             catch (RpcException ex)
             {
-                return StatusCode((int)ex.StatusCode, new { message = ex.Status.Detail });
+                var httpStatus = GrpcErrorMapper.ToHttpStatusCode(ex.StatusCode);
+                return StatusCode(httpStatus, new { message = ex.Status.Detail});
             }
             catch (Exception ex)
             {
@@ -120,6 +155,12 @@ namespace api_gateway.Src.Controllers
             }
         }
 
+        /// <summary>
+        /// Cancelar un pedido.
+        /// </summary>
+        /// <param name="orderId">Id del pedido a cancelar.</param>
+        /// <param name="cancelOrderDto">Peticion con los datos necesarios para cancelar un pedido.</param>
+        /// <returns>Retorna 200 ok con el pedido actualizado en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpPut("cancelOrder/{orderId}")]
         // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CancelOrderAsync(string orderId, [FromBody] CancelOrderDto cancelOrderDto)
@@ -154,7 +195,8 @@ namespace api_gateway.Src.Controllers
             }
             catch (RpcException ex)
             {
-                return StatusCode((int)ex.StatusCode, new { message = ex.Status.Detail });
+                var httpStatus = GrpcErrorMapper.ToHttpStatusCode(ex.StatusCode);
+                return StatusCode(httpStatus, new { message = ex.Status.Detail});
             }
             catch (Exception ex)
             {
@@ -162,6 +204,11 @@ namespace api_gateway.Src.Controllers
             }
         }
 
+        /// <summary>
+        /// Obtener los pedidos.
+        /// </summary>
+        /// <param name="queryObject">Filtros para los pedidos.</param>
+        /// <returns>Retorna 200 ok con los pedidos filtrados en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpGet("getOrders")]
         // [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> GetOrdersAsync([FromQuery] QueryObject queryObject)
@@ -196,7 +243,8 @@ namespace api_gateway.Src.Controllers
 
             } catch (RpcException ex)
             {
-                return StatusCode((int)ex.StatusCode, new { message = ex.Status.Detail });
+                var httpStatus = GrpcErrorMapper.ToHttpStatusCode(ex.StatusCode);
+                return StatusCode(httpStatus, new { message = ex.Status.Detail});
             } catch (Exception ex)
             {
                 return StatusCode(500, new { message = ex.Message });
