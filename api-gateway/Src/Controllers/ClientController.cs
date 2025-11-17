@@ -22,6 +22,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="query">Los parámetros de consulta para filtrar los clientes.</param>
         /// <returns>Retorna una lista de clientes que coinciden con los parámetros de consulta.</returns>
         [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetClients([FromQuery] ClientsParams query)
         {
             try
@@ -55,6 +56,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="id">El identificador único del cliente.</param>
         /// <returns>Retorna el cliente correspondiente al identificador proporcionado.</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> GetClientById(string id)
         {
             try
@@ -111,6 +113,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="dto">Datos actualizados del cliente.</param>
         /// <returns>Retorna el cliente actualizado.</returns>
         [HttpPatch("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateClient(string id, [FromBody] ClientUpdateDto dto)
         {
             try
@@ -144,6 +147,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="id">Identificador único del cliente.</param>
         /// <returns>Retorna el cliente desactivado.</returns>
         [HttpPatch("{id}/deactivate")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeactivateClient(string id)
         {
             try

@@ -108,9 +108,14 @@ Se encarga de enviar cada solicitud al microservicio adecuado según el endpoint
 
 ### Clients (HTTP → Clients Service gRPC)
 
-| Método | Endpoint       | Destino        | Descripción   | Autenticación |
-| ------ | -------------- | -------------- | ------------- | ------------- |
-| `POST` | `/api/clients` | Client Service | Crear usuario | Sí (Admin)    |
+| Método  | Endpoint                       | Destino        | Descripción                | Autenticación |
+| ------- | ------------------------------ | -------------- | -------------------------- | ------------- |
+| `GET`   | `/api/clients`                 | Client Service | Obtener todos los clientes | Sí (Admin)    |
+| `GET`   | `/api/clients/{id}`            | Client Service | Obtener cliente por Id     | Sí (Admin)    |
+| `POST`  | `/api/clients`                 | Client Service | Crear usuario              | No            |
+| `PATCH` | `/api/clients/{id}`            | Client Service | Actualizar cliente         | Sí (Admin)    |
+| `PATCH` | `/api/clients/{id}/deactivate` | Client Service | Actualizar cliente         | Sí (Admin)    |
+
 
 ### Pedidos (HTTP → Orders Service gRPC)
 
@@ -130,7 +135,7 @@ Se encarga de enviar cada solicitud al microservicio adecuado según el endpoint
 - **Docker Desktop**: [Download](https://www.docker.com/products/docker-desktop)
 - **VS Code**: [Download](https://code.visualstudio.com/)
 - **Todos los microservicios deben estar corriendo**:
-  - Auth Service (puerto ?)
+  - Auth Service (puerto 5144)
   - Products Service (puerto 50052)
   - Clients Service (puerto 7181)
   - Orders Service (puerto 50051)
@@ -160,7 +165,7 @@ JWT_AUDIENCE=CensudexClients
 JWT_EXPIRATION_MINUTES=60
 
 # Auth Service URL (HTTP)
-AUTH_SERVICE_URL=http://localhost:?
+AUTH_SERVICE_URL=http://localhost:5144
 ```
 
 ### 3. Instalar Dependencias
@@ -207,41 +212,51 @@ El API Gateway estará disponible en:
 **Request Body:**
 
 ```json
-{}
+{
+    "UsernameOrEmail": "juanperez3",
+    "password": "SecurePassword123!"
+}
 ```
 
 **Response (200):**
 
 ```json
-{}
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGY0ZC1iYjg2LTdiZDUtYjk5Mi1mNzVkNTcwYjRhZDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDTElFTlQiLCJqdGkiOiJhODE1ZGVjYy00YTk4LTQ5ZjAtOTRhZC00YzYzY2I1MjZmMTciLCJleHAiOjE3NjMzNDc1NTcsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.0Nz1rVhkyirNQExy7aV5douAnj1GJaLI9xku-zsG-RI",
+    "userId": "019a8f4d-bb86-7bd5-b992-f75d570b4ad9",
+    "role": "CLIENT"
+}
 ```
 
 ### 2. Validar Token (GET /api/?)
 
-**Request Body:**
+**Comportamiento por Rol**
 
-```json
-{}
-```
+- **Necesario** indicar como Authorization el token correspondiente a un usuario logueado. 
 
 **Response (200):**
 
 ```json
-{}
+{
+    "isValid": true,
+    "userId": <guid>,
+    "role": <role>,
+    "message": "Token válido"
+}
 ```
 
 ### 3. Logout (POST /api/logout)
 
-**Request Body:**
+**Comportamiento por Rol**
 
-```json
-{}
-```
+- **Necesario** indicar como Authorization el token correspondiente a un usuario logueado. 
 
 **Response (200):**
 
 ```json
-{}
+{
+    "message": "Cierre de sesión exitoso"
+}
 ```
 
 ### Products Service Endpoints
@@ -325,41 +340,130 @@ El API Gateway estará disponible en:
 **Request Body**
 
 ```json
-{}
+{
+  "fullName": "Juan Pérez García",
+  "email": "juan.perez3@censudex.cl",
+  "username": "juanperez3",
+  "birthDate": "1990-05-15",
+  "address": "Calle Principal 123, Apartamento 4B",
+  "phoneNumber": "+56912345678",
+  "password": "SecurePassword123!"
+}
 ```
 
 **Response (200):**
 
 ```json
-{}
+{
+    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+    "fullName": "Juan Pérez García",
+    "email": "juan.perez3@censudex.cl",
+    "username": "juanperez3",
+    "birthDate": "15-05-1990",
+    "address": "Calle Principal 123, Apartamento 4B",
+    "phoneNumber": "+56912345678",
+    "isActive": true,
+    "role": "CLIENT"
+}
 ```
 
-#### 2. Consultar clientes por id (GET /api/clients/{productId})
+#### 2. Consultar clientes por id (GET /api/clients/{Id})
+
+**Comportamiento por Rol**
+
+- **Admin:** Será capaz de obtener un cliente según su id.
+
+**Response (200):**
+
+```json
+{
+    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+    "fullName": "Juan Pérez García",
+    "email": "juan.perez2@censudex.cl",
+    "username": "juanperez2",
+    "birthDate": "15-05-1990",
+    "address": "Calle Principal 123, Apartamento 4B",
+    "phoneNumber": "+56912345678",
+    "isActive": true,
+    "role": "CLIENT"
+}
+```
+
+#### 3. Consultar clientes (GET /api/clients)
+
+**Comportamiento por Rol**
+
+- **Admin:** Será capaz de obtener un listado con todos los clientes del sistema.
+
+**Response (200):**
+
+```json
+[
+    {
+        "id": "01ad97de-0986-4f11-9958-ed494687babe",
+        "fullName": "Mario Domínguez",
+        "email": "Eduardo72@hotmail.com",
+        "username": "Julio_Montenegro76",
+        "birthDate": "03-01-1981",
+        "address": "Carretera José María 4 Puerta 276, Paterna, Siria",
+        "phoneNumber": "+56980659497",
+        "isActive": true,
+        "role": "CLIENT"
+    },
+    ...
+]
+```
+
+#### 4. Actualizar cliente (PATCH /api/clients/{id})
+
+**Comportamiento por Rol**
+
+- **Admin:** Será capaz de actualizar los atributos correspondientes a los de un cliente según su id.
 
 **Request Body**
 
 ```json
-{}
+{
+  "fullName": "Juan Pérez"
+}
 ```
 
 **Response (200):**
 
 ```json
-{}
+{
+    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+    "fullName": "Juan Pérez",
+    "email": "juan.perez2@censudex.cl",
+    "username": "juanperez2",
+    "birthDate": "15-05-1990",
+    "address": "Calle Principal 123, Apartamento 4B",
+    "phoneNumber": "+56912345678",
+    "isActive": true,
+    "role": "CLIENT"
+}
 ```
 
-#### 3. ..
+#### 5. Eliminar cliente (PATCH /api/clients/{id}/deactivate)
 
-**Request Body**
+**Comportamiento por Rol**
 
-```json
-{}
-```
+- **Admin:** Será capaz de eliminar un cliente del sistema (SOFT DELETE) según su id.
 
 **Response (200):**
 
 ```json
-{}
+{
+    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+    "fullName": "Juan Pérez",
+    "email": "juan.perez2@censudex.cl",
+    "username": "juanperez2",
+    "birthDate": "15-05-1990",
+    "address": "Calle Principal 123, Apartamento 4B",
+    "phoneNumber": "+56912345678",
+    "isActive": false,
+    "role": "CLIENT"
+}
 ```
 
 ### Orders Service Endpoints
