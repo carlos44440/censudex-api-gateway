@@ -159,9 +159,9 @@ PRODUCT_SERVICE_URL=http://localhost:50052
 CLIENT_SERVICE_URL=https://localhost:7181
 
 # JWT Configuration
-JWT_SECRET=my-super-secret-key-at-least-32-characters-long-for-jwt-validation!
-JWT_ISSUER=CensudexAPIGateway
-JWT_AUDIENCE=CensudexClients
+JWT_KEY=your-super-secret-key-min-32-characters-long-for-HS256
+JWT_ISSUER=censudex-auth-service
+JWT_AUDIENCE=censudex-clients
 JWT_EXPIRATION_MINUTES=60
 
 # Auth Service URL (HTTP)
