@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "8e808797-3195-4b3f-8946-28709d8454a2",
+		"name": "Taller 2 Arquitectura de Sistemas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34959438"
+	},
+	"item": [
+		{
+			"name": "Auth Service",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UsernameOrEmail\": \"juanperez3\",\r\n    \"password\": \"SecurePassword123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5144/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5144",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGY0ZC1iYjg2LTdiZDUtYjk5Mi1mNzVkNTcwYjRhZDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDTElFTlQiLCJqdGkiOiIyY2UwNmVjZS1hOTE3LTQ2ZjctYThkZi00ZTRjMzRlZWMxMjYiLCJleHAiOjE3NjMzNDYyODUsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.uaLJi9KOlSqubertuxeL3S7awOtfghrpA_B--PpBHwo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5144/api/auth/validate-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5144",
+							"path": [
+								"api",
+								"auth",
+								"validate-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGU4Yi1mYWY0LTdjOTItOWZjOC1mOWI4NDAxM2I0ZjgiLCJyb2xlIjoiY3VzdG9tZXIiLCJqdGkiOiIzOWZlZWJlYS05N2Y3LTRlN2EtOWVmMi0zNzMyZDEyZjFkM2YiLCJleHAiOjE3NjMzMzE3NDMsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.HnqvbkE3Cdsm_N3EmwmHYTeNkC7WkkWniYvuj3tjPyw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5144/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5144",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gateway",
+			"item": [
+				{
+					"name": "Clients",
+					"item": [
+						{
+							"name": "Obtener todos los clientes",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImZlMzRjNjRlLTMzYjEtNDQ0Yi1hNDZmLWMyYTNlMWM1ZmE2OSIsImV4cCI6MTc2MzM0NzgxMiwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.KUo9z-PSbghcQnNjaN43YKQ01vYjF_vlimm7Dh_-rOU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5234/api/client",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"client"
+									],
+									"query": [
+										{
+											"key": "IsActive",
+											"value": "false",
+											"disabled": true
+										},
+										{
+											"key": "Username",
+											"value": "juan",
+											"disabled": true
+										},
+										{
+											"key": "Email",
+											"value": "juan",
+											"disabled": true
+										},
+										{
+											"key": "FullName",
+											"value": "juan",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener cliente por Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImZlMzRjNjRlLTMzYjEtNDQ0Yi1hNDZmLWMyYTNlMWM1ZmE2OSIsImV4cCI6MTc2MzM0NzgxMiwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.KUo9z-PSbghcQnNjaN43YKQ01vYjF_vlimm7Dh_-rOU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5234/api/client/019a8f80-fd62-7a89-9925-6d69c73cc03f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"client",
+										"019a8f80-fd62-7a89-9925-6d69c73cc03f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear cliente",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"fullName\": \"Juan Pérez García\",\r\n  \"email\": \"juan.perez2@censudex.cl\",\r\n  \"username\": \"juanperez2\",\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"address\": \"Calle Principal 123, Apartamento 4B\",\r\n  \"phoneNumber\": \"+56912345678\",\r\n  \"password\": \"SecurePassword123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5234/api/client",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"client"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar cliente",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImZlMzRjNjRlLTMzYjEtNDQ0Yi1hNDZmLWMyYTNlMWM1ZmE2OSIsImV4cCI6MTc2MzM0NzgxMiwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.KUo9z-PSbghcQnNjaN43YKQ01vYjF_vlimm7Dh_-rOU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"fullName\": \"Juan Pérez\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5234/api/client/019a8f80-fd62-7a89-9925-6d69c73cc03f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"client",
+										"019a8f80-fd62-7a89-9925-6d69c73cc03f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar cliente",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImY2ZDBlMWViLTAxY2MtNDIzMy1iMWZjLTk3ZDIyZDc2ZGU3MyIsImV4cCI6MTc2MzM0ODIxOCwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.uxEkHs1DLNopbW5o24TIw7uumnjc4RVI_Scy-vSWsEw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5234/api/client/019a8f80-fd62-7a89-9925-6d69c73cc03f/deactivate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"client",
+										"019a8f80-fd62-7a89-9925-6d69c73cc03f",
+										"deactivate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"UsernameOrEmail\": \"admin@censudex.com\",\r\n    \"password\": \"Admin123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5234/api/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validate Token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGY0ZC1iYjg2LTdiZDUtYjk5Mi1mNzVkNTcwYjRhZDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDTElFTlQiLCJqdGkiOiJhODE1ZGVjYy00YTk4LTQ5ZjAtOTRhZC00YzYzY2I1MjZmMTciLCJleHAiOjE3NjMzNDc1NTcsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.0Nz1rVhkyirNQExy7aV5douAnj1GJaLI9xku-zsG-RI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5234/api/auth/validate-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"auth",
+										"validate-token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJyb2xlIjoiIiwianRpIjoiMjhlNzM4YjMtNGUxOC00OWUzLTkwMjMtZDZkYjVlYjZhNTU1IiwiZXhwIjoxNzYzMzQzODk5LCJpc3MiOiJjZW5zdWRleC1hdXRoLXNlcnZpY2UiLCJhdWQiOiJjZW5zdWRleC1jbGllbnRzIn0.5rC3xvkRFxzGcb4iDhdgyA1YKMYLHMfDbn-PwGrqeXg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5234/api/auth/logout",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5234",
+									"path": [
+										"api",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
