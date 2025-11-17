@@ -48,14 +48,14 @@ namespace api_gateway.Src.Controllers
             try
             {
                 //Extraer los datos del usuario.
-                // var metadata = _userMetadataExtractor.Extract(User);
-                var metadata = new Metadata
-                {
-                    { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
-                    { "x-user-name", "Carlos Arauco Colque" },
-                    { "x-user-role", "CLIENT" },
-                    { "x-user-email", "carlos5132fc@gmail.com" }
-                };
+                var metadata = _userMetadataExtractor.Extract(User);
+                // var metadata = new Metadata
+                // {
+                //     { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
+                //     { "x-user-name", "Carlos Arauco Colque" },
+                //     { "x-user-role", "CLIENT" },
+                //     { "x-user-email", "carlos5132fc@gmail.com" }
+                // };
                 
                 var createOrderRequest = new CreateOrderRequest{};
 
@@ -94,14 +94,14 @@ namespace api_gateway.Src.Controllers
             try
             {
                 // Extraer los datos del usuario desde el JWT.
-                // var metadata = _userMetadataExtractor.Extract(User);
-                var metadata = new Metadata
-                {
-                    { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
-                    { "x-user-name", "Carlos Arauco Colque" },
-                    { "x-user-role", "CLIENT" },
-                    { "x-user-email", "carlos5132fc@gmail.com" }
-                };
+                var metadata = _userMetadataExtractor.Extract(User);
+                // var metadata = new Metadata
+                // {
+                //     { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
+                //     { "x-user-name", "Carlos Arauco Colque" },
+                //     { "x-user-role", "CLIENT" },
+                //     { "x-user-email", "carlos5132fc@gmail.com" }
+                // };
 
                 var checkOrderStatusRequest = new CheckOrderStatusRequest
                 {
@@ -162,21 +162,21 @@ namespace api_gateway.Src.Controllers
         /// <param name="cancelOrderDto">Peticion con los datos necesarios para cancelar un pedido.</param>
         /// <returns>Retorna 200 ok con el pedido actualizado en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpPut("cancelOrder/{orderId}")]
-        // [Authorize(Roles = "CLIENT,ADMIN")]
+        [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CancelOrderAsync(string orderId, [FromBody] CancelOrderDto cancelOrderDto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
             try
             {
-                // var metadata = _userMetadataExtractor.Extract(User);
-                var metadata = new Metadata
-                {
-                    { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
-                    { "x-user-name", "Carlos" },
-                    { "x-user-role", "CLIENT" },
-                    { "x-user-email", "carlos5132fc@gmail.com" }
-                };
+                var metadata = _userMetadataExtractor.Extract(User);
+                // var metadata = new Metadata
+                // {
+                //     { "x-user-id", "019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c" },
+                //     { "x-user-name", "Carlos" },
+                //     { "x-user-role", "CLIENT" },
+                //     { "x-user-email", "carlos5132fc@gmail.com" }
+                // };
 
                 var requestCancelOrder = new RequestCancelOrder
                 {
@@ -217,21 +217,21 @@ namespace api_gateway.Src.Controllers
 
             try
             {
-                // var metadata = _userMetadataExtractor.Extract(User);
-                var metadata = new Metadata
-                {
-                    { "x-user-id", "08975dbf-39a8-4d96-8c24-993057eef645" },
-                    { "x-user-name", "Carlos" },
-                    { "x-user-role", "CLIENT" },
-                    { "x-user-email", "carlos5132fc@gmail.com" }
-                };
+                var metadata = _userMetadataExtractor.Extract(User);
+                // var metadata = new Metadata
+                // {
+                //     { "x-user-id", "08975dbf-39a8-4d96-8c24-993057eef645" },
+                //     { "x-user-name", "Carlos" },
+                //     { "x-user-role", "CLIENT" },
+                //     { "x-user-email", "carlos5132fc@gmail.com" }
+                // };
 
                 var queryObjectOrder = new QueryObjectOrder
                 {
                     OrderId = queryObject.OrderId ?? "",
                     CustomerId = queryObject.CustomerId ?? "",
-                    InitialOrderDate = queryObject.InitialOrderDate?.ToString() ?? "",
-                    FinalOrderDate = queryObject.FinalOrderDate?.ToString() ?? ""
+                    InitialOrderDate = queryObject.InitialOrderDate?.ToString("O") ?? "",
+                    FinalOrderDate = queryObject.FinalOrderDate?.ToString("O") ?? ""
                 };
 
                 var getOrdersRequest = new GetOrdersRequest

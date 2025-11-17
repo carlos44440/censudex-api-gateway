@@ -1,0 +1,906 @@
+{
+  "info": {
+    "_postman_id": "21bbea9e-abaa-4e2b-b3eb-fca37cf39d8c",
+    "name": "ApiGateway-OrderService",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37924574",
+    "_collection_link": "https://taller1-intdeswebmovil-postmna.postman.co/workspace/Taller1-IntDesWebMovil-Postmna-~57442294-81d9-4bef-837e-21ceec817dcb/collection/37924574-21bbea9e-abaa-4e2b-b3eb-fca37cf39d8c?action=share&source=collection_link&creator=37924574"
+  },
+  "item": [
+    {
+      "name": "CreateOrder",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\r\n      \"quantity\": 10\r\n    },\r\n    {\r\n      \"productId\": \"71621705-65d5-4f14-9a77-12fed122f4ef1\",\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}createOrder",
+          "host": ["{{base_url}}createOrder"]
+        }
+      },
+      "response": [
+        {
+          "name": "OrderCreated",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\r\n      \"quantity\": 10\r\n    },\r\n    {\r\n      \"productId\": \"71621705-65d5-4f14-9a77-12fed122f4ef\",\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}createOrder",
+              "host": ["{{base_url}}createOrder"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:46:22 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2\",\n    \"orderDate\": \"2025-11-16T23:46:18.3193766Z\",\n    \"userId\": \"019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c\",\n    \"items\": [\n        {\n            \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\n            \"productName\": \"Laptop HP Pavilion 15\",\n            \"quantity\": 10,\n            \"unitPrice\": 899,\n            \"subTotal\": 8990\n        },\n        {\n            \"productId\": \"71621705-65d5-4f14-9a77-12fed122f4ef\",\n            \"productName\": \"Nike Air Max 270\",\n            \"quantity\": 10,\n            \"unitPrice\": 149,\n            \"subTotal\": 1490\n        }\n    ],\n    \"status\": \"pendiente\",\n    \"totalAmount\": 10480,\n    \"trackingNumber\": \"TRK-20251116-603157\",\n    \"deliveryDate\": \"2025-12-16T23:46:18.3411575Z\",\n    \"cancellationReason\": \"\"\n}"
+        },
+        {
+          "name": "ProductsDuplicated",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\r\n      \"quantity\": 10\r\n    },\r\n    {\r\n      \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}createOrder",
+              "host": ["{{base_url}}createOrder"]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:47:14 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error creating order: El pedido tiene dos productos duplicados\"\n}"
+        },
+        {
+          "name": "QuantityFailed",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\r\n      \"quantity\": 10\r\n    },\r\n    {\r\n      \"productId\": \"71621705-65d5-4f14-9a77-12fed122f4ef\",\r\n      \"quantity\": 0\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}createOrder",
+              "host": ["{{base_url}}createOrder"]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:49:51 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error creating order: La cantidad debe ser mayor a 0\"\n}"
+        },
+        {
+          "name": "Non-ExistentProduct",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\r\n      \"quantity\": 10\r\n    },\r\n    {\r\n      \"productId\": \"71621705-65d5-4f14-9a77-12fed122f4e1\",\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}createOrder",
+              "host": ["{{base_url}}createOrder"]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:50:39 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error creating order: El producto con la Id 71621705-65d5-4f14-9a77-12fed122f4e1 no existe\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "CheckOrderStatus",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}checkOrderStatus/d57ca8e6-66fa-46aa-8ac2-034c36cfcbee",
+          "host": ["{{base_url}}checkOrderStatus"],
+          "path": ["d57ca8e6-66fa-46aa-8ac2-034c36cfcbee"]
+        }
+      },
+      "response": [
+        {
+          "name": "OrderStatusChecked",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}checkOrderStatus/26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2",
+              "host": ["{{base_url}}checkOrderStatus"],
+              "path": ["26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:54:10 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/plain; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "pendiente"
+        },
+        {
+          "name": "OrderIdError",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}checkOrderStatus/d57ca8e6-66fa-46aa-8ac2-034c36cfcbee",
+              "host": ["{{base_url}}checkOrderStatus"],
+              "path": ["d57ca8e6-66fa-46aa-8ac2-034c36cfcbee"]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:55:06 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error checking order status: La Id del pedido no corresponde a ningun pedido del cliente\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "UpdateOrderStatus",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"en procesamiento\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}updateOrderStatus/26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2",
+          "host": ["{{base_url}}updateOrderStatus"],
+          "path": ["26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2"]
+        }
+      },
+      "response": [
+        {
+          "name": "OrderStatusError",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"en procesamient\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}updateOrderStatus/26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2",
+              "host": ["{{base_url}}updateOrderStatus"],
+              "path": ["26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2"]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:56:49 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/problem+json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"errors\": {\n        \"Status\": [\n            \"El estado del pedido debe ser alguno de estos valores 'pendiente', 'en procesamiento', 'enviado', 'entregado' y 'cancelado'\"\n        ]\n    },\n    \"traceId\": \"00-ef461a3de26ff2a763baf4688d92a191-b1bb3f544a603e48-00\"\n}"
+        },
+        {
+          "name": "OrderStatusUpdated",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"en procesamiento\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}updateOrderStatus/26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2",
+              "host": ["{{base_url}}updateOrderStatus"],
+              "path": ["26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 16 Nov 2025 23:58:05 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2\",\n    \"orderDate\": \"2025-11-16T23:46:18.3193760\",\n    \"userId\": \"019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c\",\n    \"items\": [],\n    \"status\": \"en procesamiento\",\n    \"totalAmount\": 10480,\n    \"trackingNumber\": \"TRK-20251116-603157\",\n    \"deliveryDate\": \"2025-12-16T23:46:18.3411570\",\n    \"cancellationReason\": \"\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "CancelOrder",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"cancellationReason\": \"Me arrenti en la compra\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}cancelOrder/26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2",
+          "host": ["{{base_url}}cancelOrder"],
+          "path": ["26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2"]
+        }
+      },
+      "response": [
+        {
+          "name": "OrderIdFailed",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cancellationReason\": \"Mal gestion\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}cancelOrder/5fa571dc-4b93-4ccf-acb5-f1f294d2863e",
+              "host": ["{{base_url}}cancelOrder"],
+              "path": ["5fa571dc-4b93-4ccf-acb5-f1f294d2863e"]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 17 Nov 2025 00:02:19 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error cancelling order: Sequence contains no elements\"\n}"
+        },
+        {
+          "name": "CancelOrderFailed",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cancellationReason\": \"Mal gestion\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}cancelOrder/73cd22f2-d5bd-48e4-a998-e31d3e044a92",
+              "host": ["{{base_url}}cancelOrder"],
+              "path": ["73cd22f2-d5bd-48e4-a998-e31d3e044a92"]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 17 Nov 2025 00:03:39 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error cancelling order: No es posible cancelar un pedido que ya fue enviado, entregado o cancelado\"\n}"
+        },
+        {
+          "name": "OrderCanceled",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cancellationReason\": \"Me arrenti en la compra\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}cancelOrder/26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2",
+              "host": ["{{base_url}}cancelOrder"],
+              "path": ["26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 17 Nov 2025 00:07:19 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"26ea6b1b-69f0-49b8-b49b-3b65ff3e15a2\",\n    \"orderDate\": \"2025-11-16T23:46:18.3193760\",\n    \"userId\": \"019a8ac6-79d4-7f5d-a537-bf2ec6d0ff7c\",\n    \"items\": [],\n    \"status\": \"cancelado\",\n    \"totalAmount\": 10480,\n    \"trackingNumber\": \"TRK-20251116-603157\",\n    \"deliveryDate\": \"2025-12-16T23:46:18.3411570\",\n    \"cancellationReason\": \"Me arrenti en la compra\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "GetOrders",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": "{{base_url}}getOrders?InitialOrderDate=2025-11-16&FinalOrderDate=2025-11-14",
+          "host": ["{{base_url}}getOrders"],
+          "query": [
+            {
+              "key": "OrderId",
+              "value": "f23eb2d5-a980-4392-8d3f-98cc275d9f71",
+              "disabled": true
+            },
+            {
+              "key": "CustomerId",
+              "value": "",
+              "disabled": true
+            },
+            {
+              "key": "InitialOrderDate",
+              "value": "2025-11-16"
+            },
+            {
+              "key": "FinalOrderDate",
+              "value": "2025-11-14"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "OrdersObtained",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}getOrders",
+              "host": ["{{base_url}}getOrders"],
+              "query": [
+                {
+                  "key": "OrderId",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "CustomerId",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "InitialOrderDate",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "FinalOrderDate\n",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 17 Nov 2025 00:08:22 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"orderDto\": [\n        {\n            \"id\": \"6af37476-8b60-4013-8aa9-75eb02c2888d\",\n            \"orderDate\": \"2025-11-15T06:20:41.2083620\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\n                    \"productName\": \"Laptop HP Pavilion 15\",\n                    \"quantity\": 1000,\n                    \"unitPrice\": 899,\n                    \"subTotal\": 899000\n                }\n            ],\n            \"status\": \"cancelado\",\n            \"totalAmount\": 899000,\n            \"trackingNumber\": \"TRK-20251115-568785\",\n            \"deliveryDate\": \"2025-12-15T06:20:41.2227750\",\n            \"cancellationReason\": \"Insufficient stock for one or more products\"\n        },\n        {\n            \"id\": \"71bc584a-a8d5-4071-b65e-41a057f4e8d6\",\n            \"orderDate\": \"2025-11-15T06:08:48.9943140\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\n                    \"productName\": \"Laptop HP Pavilion 15\",\n                    \"quantity\": 10,\n                    \"unitPrice\": 899,\n                    \"subTotal\": 8990\n                }\n            ],\n            \"status\": \"pendiente\",\n            \"totalAmount\": 8990,\n            \"trackingNumber\": \"TRK-20251115-362281\",\n            \"deliveryDate\": \"2025-12-15T06:08:49.0247870\",\n            \"cancellationReason\": \"\"\n        },\n        {\n            \"id\": \"7ba391d9-298e-4e3a-9ce6-a8d42e30e02f\",\n            \"orderDate\": \"2025-11-15T00:35:19.2163400\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"019a83e7-ca92-7095-9d42-d876d834eaf7\",\n                    \"productName\": \"Product\",\n                    \"quantity\": 1000,\n                    \"unitPrice\": 12,\n                    \"subTotal\": 12000\n                }\n            ],\n            \"status\": \"pendiente\",\n            \"totalAmount\": 12000,\n            \"trackingNumber\": \"TRK-20251115-158182\",\n            \"deliveryDate\": \"2025-12-15T00:35:19.2163920\",\n            \"cancellationReason\": \"\"\n        },\n        {\n            \"id\": \"824b0709-c7f1-4bff-8623-f1b8466f5f57\",\n            \"orderDate\": \"2025-11-15T06:19:59.7183490\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\n                    \"productName\": \"Laptop HP Pavilion 15\",\n                    \"quantity\": 1000,\n                    \"unitPrice\": 899,\n                    \"subTotal\": 899000\n                }\n            ],\n            \"status\": \"cancelado\",\n            \"totalAmount\": 899000,\n            \"trackingNumber\": \"TRK-20251115-589813\",\n            \"deliveryDate\": \"2025-12-15T06:19:59.7185130\",\n            \"cancellationReason\": \"Mal gestion\"\n        },\n        {\n            \"id\": \"a55c82d1-945c-4ba3-9896-1a442d30ea90\",\n            \"orderDate\": \"2025-11-15T00:53:47.2116020\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"019a83e7-ca92-7095-9d42-d876d834eaf7\",\n                    \"productName\": \"Product\",\n                    \"quantity\": 1000,\n                    \"unitPrice\": 12,\n                    \"subTotal\": 12000\n                }\n            ],\n            \"status\": \"cancelado\",\n            \"totalAmount\": 12000,\n            \"trackingNumber\": \"TRK-20251115-795848\",\n            \"deliveryDate\": \"2025-12-15T00:53:47.2117520\",\n            \"cancellationReason\": \"Insufficient stock for one or more products\"\n        },\n        {\n            \"id\": \"a55fa53a-3fe1-487d-bedb-9da3df2725c2\",\n            \"orderDate\": \"2025-11-15T06:17:49.2046850\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"54b90813-496d-42a2-aeb8-b3c02b38dbf5\",\n                    \"productName\": \"Laptop HP Pavilion 15\",\n                    \"quantity\": 1000,\n                    \"unitPrice\": 899,\n                    \"subTotal\": 899000\n                }\n            ],\n            \"status\": \"cancelado\",\n            \"totalAmount\": 899000,\n            \"trackingNumber\": \"TRK-20251115-946877\",\n            \"deliveryDate\": \"2025-12-15T06:17:49.2146410\",\n            \"cancellationReason\": \"Mal gestion\"\n        },\n        {\n            \"id\": \"d57ca8e6-66fa-46aa-8ac2-034c36cfcbee\",\n            \"orderDate\": \"2025-11-15T00:27:10.6910290\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"b8f16a9b-ef59-41e2-8e8f-3db1f14d0e34\",\n                    \"productName\": \"Product\",\n                    \"quantity\": 10,\n                    \"unitPrice\": 12,\n                    \"subTotal\": 120\n                }\n            ],\n            \"status\": \"pendiente\",\n            \"totalAmount\": 120,\n            \"trackingNumber\": \"TRK-20251115-135194\",\n            \"deliveryDate\": \"2025-12-15T00:27:10.7093200\",\n            \"cancellationReason\": \"\"\n        },\n        {\n            \"id\": \"e8d3c5d8-5125-44a2-a61e-c81b6a08191a\",\n            \"orderDate\": \"2025-11-15T00:43:03.3660690\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"019a83e7-ca92-7095-9d42-d876d834eaf7\",\n                    \"productName\": \"Product\",\n                    \"quantity\": 1000,\n                    \"unitPrice\": 12,\n                    \"subTotal\": 12000\n                }\n            ],\n            \"status\": \"pendiente\",\n            \"totalAmount\": 12000,\n            \"trackingNumber\": \"TRK-20251115-456642\",\n            \"deliveryDate\": \"2025-12-15T00:43:03.3661200\",\n            \"cancellationReason\": \"\"\n        },\n        {\n            \"id\": \"f23eb2d5-a980-4392-8d3f-98cc275d9f71\",\n            \"orderDate\": \"2025-11-15T00:55:55.1194420\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"019a83e7-ca92-7095-9d42-d876d834eaf7\",\n                    \"productName\": \"Product\",\n                    \"quantity\": 10,\n                    \"unitPrice\": 12,\n                    \"subTotal\": 120\n                }\n            ],\n            \"status\": \"cancelado\",\n            \"totalAmount\": 120,\n            \"trackingNumber\": \"TRK-20251115-462428\",\n            \"deliveryDate\": \"2025-12-15T00:55:55.1194850\",\n            \"cancellationReason\": \"Me arrepenti\"\n        },\n        {\n            \"id\": \"f2500381-b940-44ae-9a22-203eaf99a0af\",\n            \"orderDate\": \"2025-11-15T00:32:45.0507720\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"019a83e7-ca92-7095-9d42-d876d834eaf7\",\n                    \"productName\": \"Product\",\n                    \"quantity\": 1000,\n                    \"unitPrice\": 12,\n                    \"subTotal\": 12000\n                }\n            ],\n            \"status\": \"pendiente\",\n            \"totalAmount\": 12000,\n            \"trackingNumber\": \"TRK-20251115-150706\",\n            \"deliveryDate\": \"2025-12-15T00:32:45.0508350\",\n            \"cancellationReason\": \"\"\n        }\n    ]\n}"
+        },
+        {
+          "name": "OrderIdFilter",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}getOrders?OrderId=f23eb2d5-a980-4392-8d3f-98cc275d9f71",
+              "host": ["{{base_url}}getOrders"],
+              "query": [
+                {
+                  "key": "OrderId",
+                  "value": "f23eb2d5-a980-4392-8d3f-98cc275d9f71"
+                },
+                {
+                  "key": "CustomerId",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "InitialOrderDate",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "FinalOrderDate\n",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 17 Nov 2025 00:24:50 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"orderDto\": [\n        {\n            \"id\": \"f23eb2d5-a980-4392-8d3f-98cc275d9f71\",\n            \"orderDate\": \"2025-11-15T00:55:55.1194420\",\n            \"userId\": \"08975dbf-39a8-4d96-8c24-993057eef645\",\n            \"items\": [\n                {\n                    \"productId\": \"019a83e7-ca92-7095-9d42-d876d834eaf7\",\n                    \"productName\": \"Product\",\n                    \"quantity\": 10,\n                    \"unitPrice\": 12,\n                    \"subTotal\": 120\n                }\n            ],\n            \"status\": \"cancelado\",\n            \"totalAmount\": 120,\n            \"trackingNumber\": \"TRK-20251115-462428\",\n            \"deliveryDate\": \"2025-12-15T00:55:55.1194850\",\n            \"cancellationReason\": \"Me arrepenti\"\n        }\n    ]\n}"
+        },
+        {
+          "name": "Non-Orders",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}getOrders?InitialOrderDate=2025-11-12&FinalOrderDate=2025-11-14",
+              "host": ["{{base_url}}getOrders"],
+              "query": [
+                {
+                  "key": "OrderId",
+                  "value": "f23eb2d5-a980-4392-8d3f-98cc275d9f71",
+                  "disabled": true
+                },
+                {
+                  "key": "CustomerId",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "InitialOrderDate",
+                  "value": "2025-11-12"
+                },
+                {
+                  "key": "FinalOrderDate",
+                  "value": "2025-11-14"
+                }
+              ]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 17 Nov 2025 00:38:19 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error fetching orders: No se encontro ningun pedido\"\n}"
+        },
+        {
+          "name": "DateFilterError",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{base_url}}getOrders?InitialOrderDate=2025-11-16&FinalOrderDate=2025-11-14",
+              "host": ["{{base_url}}getOrders"],
+              "query": [
+                {
+                  "key": "OrderId",
+                  "value": "f23eb2d5-a980-4392-8d3f-98cc275d9f71",
+                  "disabled": true
+                },
+                {
+                  "key": "CustomerId",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "InitialOrderDate",
+                  "value": "2025-11-16"
+                },
+                {
+                  "key": "FinalOrderDate",
+                  "value": "2025-11-14"
+                }
+              ]
+            }
+          },
+          "status": "Internal Server Error",
+          "code": 500,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Server",
+              "value": "nginx/1.29.3"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 17 Nov 2025 00:39:13 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Error fetching orders: La fecha de inicio no puede ser mayor que la fecha final.\"\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

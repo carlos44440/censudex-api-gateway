@@ -25,7 +25,7 @@ flowchart TD
 
     subgraph Microservices [Microservicios]
         Router -->|HTTP| AuthSvc[Auth Service
-        HTTP:?]
+        HTTP:5144]
         Translator -->|gRPC| ProductsSvc[Products Service
         gRPC:50052]
         Translator -->|gRPC| ClientSvc[Client Service
@@ -116,7 +116,6 @@ Se encarga de enviar cada solicitud al microservicio adecuado según el endpoint
 | `PATCH` | `/api/clients/{id}`            | Client Service | Actualizar cliente         | Sí (Admin)    |
 | `PATCH` | `/api/clients/{id}/deactivate` | Client Service | Actualizar cliente         | Sí (Admin)    |
 
-
 ### Pedidos (HTTP → Orders Service gRPC)
 
 | Método  | Endpoint                                | Destino        | Descripción                 | Autenticación   |
@@ -159,9 +158,9 @@ PRODUCT_SERVICE_URL=http://localhost:50052
 CLIENT_SERVICE_URL=https://localhost:7181
 
 # JWT Configuration
-JWT_KEY=your-super-secret-key-min-32-characters-long-for-HS256
-JWT_ISSUER=censudex-auth-service
-JWT_AUDIENCE=censudex-clients
+JWT_SECRET=my-super-secret-key-at-least-32-characters-long-for-jwt-validation!
+JWT_ISSUER=CensudexAPIGateway
+JWT_AUDIENCE=CensudexClients
 JWT_EXPIRATION_MINUTES=60
 
 # Auth Service URL (HTTP)
@@ -213,8 +212,8 @@ El API Gateway estará disponible en:
 
 ```json
 {
-    "UsernameOrEmail": "juanperez3",
-    "password": "SecurePassword123!"
+  "UsernameOrEmail": "juanperez3",
+  "password": "SecurePassword123!"
 }
 ```
 
@@ -222,9 +221,9 @@ El API Gateway estará disponible en:
 
 ```json
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGY0ZC1iYjg2LTdiZDUtYjk5Mi1mNzVkNTcwYjRhZDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDTElFTlQiLCJqdGkiOiJhODE1ZGVjYy00YTk4LTQ5ZjAtOTRhZC00YzYzY2I1MjZmMTciLCJleHAiOjE3NjMzNDc1NTcsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.0Nz1rVhkyirNQExy7aV5douAnj1GJaLI9xku-zsG-RI",
-    "userId": "019a8f4d-bb86-7bd5-b992-f75d570b4ad9",
-    "role": "CLIENT"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGY0ZC1iYjg2LTdiZDUtYjk5Mi1mNzVkNTcwYjRhZDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDTElFTlQiLCJqdGkiOiJhODE1ZGVjYy00YTk4LTQ5ZjAtOTRhZC00YzYzY2I1MjZmMTciLCJleHAiOjE3NjMzNDc1NTcsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.0Nz1rVhkyirNQExy7aV5douAnj1GJaLI9xku-zsG-RI",
+  "userId": "019a8f4d-bb86-7bd5-b992-f75d570b4ad9",
+  "role": "CLIENT"
 }
 ```
 
@@ -232,7 +231,7 @@ El API Gateway estará disponible en:
 
 **Comportamiento por Rol**
 
-- **Necesario** indicar como Authorization el token correspondiente a un usuario logueado. 
+- **Necesario** indicar como Authorization el token correspondiente a un usuario logueado.
 
 **Response (200):**
 
@@ -249,13 +248,13 @@ El API Gateway estará disponible en:
 
 **Comportamiento por Rol**
 
-- **Necesario** indicar como Authorization el token correspondiente a un usuario logueado. 
+- **Necesario** indicar como Authorization el token correspondiente a un usuario logueado.
 
 **Response (200):**
 
 ```json
 {
-    "message": "Cierre de sesión exitoso"
+  "message": "Cierre de sesión exitoso"
 }
 ```
 
@@ -355,15 +354,15 @@ El API Gateway estará disponible en:
 
 ```json
 {
-    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
-    "fullName": "Juan Pérez García",
-    "email": "juan.perez3@censudex.cl",
-    "username": "juanperez3",
-    "birthDate": "15-05-1990",
-    "address": "Calle Principal 123, Apartamento 4B",
-    "phoneNumber": "+56912345678",
-    "isActive": true,
-    "role": "CLIENT"
+  "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+  "fullName": "Juan Pérez García",
+  "email": "juan.perez3@censudex.cl",
+  "username": "juanperez3",
+  "birthDate": "15-05-1990",
+  "address": "Calle Principal 123, Apartamento 4B",
+  "phoneNumber": "+56912345678",
+  "isActive": true,
+  "role": "CLIENT"
 }
 ```
 
@@ -377,15 +376,15 @@ El API Gateway estará disponible en:
 
 ```json
 {
-    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
-    "fullName": "Juan Pérez García",
-    "email": "juan.perez2@censudex.cl",
-    "username": "juanperez2",
-    "birthDate": "15-05-1990",
-    "address": "Calle Principal 123, Apartamento 4B",
-    "phoneNumber": "+56912345678",
-    "isActive": true,
-    "role": "CLIENT"
+  "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+  "fullName": "Juan Pérez García",
+  "email": "juan.perez2@censudex.cl",
+  "username": "juanperez2",
+  "birthDate": "15-05-1990",
+  "address": "Calle Principal 123, Apartamento 4B",
+  "phoneNumber": "+56912345678",
+  "isActive": true,
+  "role": "CLIENT"
 }
 ```
 
@@ -432,15 +431,15 @@ El API Gateway estará disponible en:
 
 ```json
 {
-    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
-    "fullName": "Juan Pérez",
-    "email": "juan.perez2@censudex.cl",
-    "username": "juanperez2",
-    "birthDate": "15-05-1990",
-    "address": "Calle Principal 123, Apartamento 4B",
-    "phoneNumber": "+56912345678",
-    "isActive": true,
-    "role": "CLIENT"
+  "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+  "fullName": "Juan Pérez",
+  "email": "juan.perez2@censudex.cl",
+  "username": "juanperez2",
+  "birthDate": "15-05-1990",
+  "address": "Calle Principal 123, Apartamento 4B",
+  "phoneNumber": "+56912345678",
+  "isActive": true,
+  "role": "CLIENT"
 }
 ```
 
@@ -454,15 +453,15 @@ El API Gateway estará disponible en:
 
 ```json
 {
-    "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
-    "fullName": "Juan Pérez",
-    "email": "juan.perez2@censudex.cl",
-    "username": "juanperez2",
-    "birthDate": "15-05-1990",
-    "address": "Calle Principal 123, Apartamento 4B",
-    "phoneNumber": "+56912345678",
-    "isActive": false,
-    "role": "CLIENT"
+  "id": "019a8f80-fd62-7a89-9925-6d69c73cc03f",
+  "fullName": "Juan Pérez",
+  "email": "juan.perez2@censudex.cl",
+  "username": "juanperez2",
+  "birthDate": "15-05-1990",
+  "address": "Calle Principal 123, Apartamento 4B",
+  "phoneNumber": "+56912345678",
+  "isActive": false,
+  "role": "CLIENT"
 }
 ```
 
