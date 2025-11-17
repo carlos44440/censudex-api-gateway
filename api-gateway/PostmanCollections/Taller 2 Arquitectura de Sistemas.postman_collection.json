@@ -47,7 +47,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGYxOS03NzFhLTdkODMtYjFlMi05OGY4YTQ1ZTNmYTgiLCJyb2xlIjoiY3VzdG9tZXIiLCJqdGkiOiIxYmM5N2QzNy1kOWIxLTQ0NTUtYmI5MC1iYWRmZDUxMWVlNWEiLCJleHAiOjE3NjMzNDEyNzcsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.A_Y5NdRUWtE2CgByIHCy2I_95LsjQaEmJ7nxL-LvJN0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGY0ZC1iYjg2LTdiZDUtYjk5Mi1mNzVkNTcwYjRhZDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDTElFTlQiLCJqdGkiOiIyY2UwNmVjZS1hOTE3LTQ2ZjctYThkZi00ZTRjMzRlZWMxMjYiLCJleHAiOjE3NjMzNDYyODUsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.uaLJi9KOlSqubertuxeL3S7awOtfghrpA_B--PpBHwo",
 									"type": "string"
 								}
 							]
@@ -112,6 +112,16 @@
 						{
 							"name": "Obtener todos los clientes",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImZlMzRjNjRlLTMzYjEtNDQ0Yi1hNDZmLWMyYTNlMWM1ZmE2OSIsImV4cCI6MTc2MzM0NzgxMiwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.KUo9z-PSbghcQnNjaN43YKQ01vYjF_vlimm7Dh_-rOU",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -154,10 +164,20 @@
 						{
 							"name": "Obtener cliente por Id",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImZlMzRjNjRlLTMzYjEtNDQ0Yi1hNDZmLWMyYTNlMWM1ZmE2OSIsImV4cCI6MTc2MzM0NzgxMiwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.KUo9z-PSbghcQnNjaN43YKQ01vYjF_vlimm7Dh_-rOU",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5234/api/client/019a8f19-771a-7d83-b1e2-98f8a45e3fa8",
+									"raw": "http://localhost:5234/api/client/019a8f80-fd62-7a89-9925-6d69c73cc03f",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -166,7 +186,7 @@
 									"path": [
 										"api",
 										"client",
-										"019a8f19-771a-7d83-b1e2-98f8a45e3fa8"
+										"019a8f80-fd62-7a89-9925-6d69c73cc03f"
 									]
 								}
 							},
@@ -179,7 +199,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"fullName\": \"Juan Pérez García\",\r\n  \"email\": \"juan.perez3@censudex.cl\",\r\n  \"username\": \"juanperez3\",\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"address\": \"Calle Principal 123, Apartamento 4B\",\r\n  \"phoneNumber\": \"+56912345678\",\r\n  \"password\": \"SecurePassword123!\"\r\n}",
+									"raw": "{\r\n  \"fullName\": \"Juan Pérez García\",\r\n  \"email\": \"juan.perez2@censudex.cl\",\r\n  \"username\": \"juanperez2\",\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"address\": \"Calle Principal 123, Apartamento 4B\",\r\n  \"phoneNumber\": \"+56912345678\",\r\n  \"password\": \"SecurePassword123!\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -204,6 +224,16 @@
 						{
 							"name": "Actualizar cliente",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImZlMzRjNjRlLTMzYjEtNDQ0Yi1hNDZmLWMyYTNlMWM1ZmE2OSIsImV4cCI6MTc2MzM0NzgxMiwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.KUo9z-PSbghcQnNjaN43YKQ01vYjF_vlimm7Dh_-rOU",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PATCH",
 								"header": [],
 								"body": {
@@ -216,7 +246,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5234/api/client/019a8efe-620b-77d1-a4db-b4247cb97fef",
+									"raw": "http://localhost:5234/api/client/019a8f80-fd62-7a89-9925-6d69c73cc03f",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -225,7 +255,7 @@
 									"path": [
 										"api",
 										"client",
-										"019a8efe-620b-77d1-a4db-b4247cb97fef"
+										"019a8f80-fd62-7a89-9925-6d69c73cc03f"
 									]
 								}
 							},
@@ -234,10 +264,20 @@
 						{
 							"name": "Eliminar cliente",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6ImY2ZDBlMWViLTAxY2MtNDIzMy1iMWZjLTk3ZDIyZDc2ZGU3MyIsImV4cCI6MTc2MzM0ODIxOCwiaXNzIjoiY2Vuc3VkZXgtYXV0aC1zZXJ2aWNlIiwiYXVkIjoiY2Vuc3VkZXgtY2xpZW50cyJ9.uxEkHs1DLNopbW5o24TIw7uumnjc4RVI_Scy-vSWsEw",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PATCH",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5234/api/client/019a8efe-620b-77d1-a4db-b4247cb97fef/deactivate",
+									"raw": "http://localhost:5234/api/client/019a8f80-fd62-7a89-9925-6d69c73cc03f/deactivate",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -246,7 +286,7 @@
 									"path": [
 										"api",
 										"client",
-										"019a8efe-620b-77d1-a4db-b4247cb97fef",
+										"019a8f80-fd62-7a89-9925-6d69c73cc03f",
 										"deactivate"
 									]
 								}
@@ -265,7 +305,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"UsernameOrEmail\": \"juanperez3\",\r\n    \"password\": \"SecurePassword123!\"\r\n}",
+									"raw": "{\r\n    \"UsernameOrEmail\": \"admin@censudex.com\",\r\n    \"password\": \"Admin123!\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -296,7 +336,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGYxOS03NzFhLTdkODMtYjFlMi05OGY4YTQ1ZTNmYTgiLCJyb2xlIjoiY3VzdG9tZXIiLCJqdGkiOiIyZjM5NjhiMy03MDE1LTQ2N2MtOWY2Ny1kOWEzMTA3ZjgzNDgiLCJleHAiOjE3NjMzNDEzOTEsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.Ux4orzsYaGThSRnDFBvzmCnebjVrUWV9MkoIftcfCJk",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGY0ZC1iYjg2LTdiZDUtYjk5Mi1mNzVkNTcwYjRhZDkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDTElFTlQiLCJqdGkiOiJhODE1ZGVjYy00YTk4LTQ5ZjAtOTRhZC00YzYzY2I1MjZmMTciLCJleHAiOjE3NjMzNDc1NTcsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.0Nz1rVhkyirNQExy7aV5douAnj1GJaLI9xku-zsG-RI",
 											"type": "string"
 										}
 									]
@@ -327,7 +367,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlhOGYxOS03NzFhLTdkODMtYjFlMi05OGY4YTQ1ZTNmYTgiLCJyb2xlIjoiY3VzdG9tZXIiLCJqdGkiOiIyZjM5NjhiMy03MDE1LTQ2N2MtOWY2Ny1kOWEzMTA3ZjgzNDgiLCJleHAiOjE3NjMzNDEzOTEsImlzcyI6ImNlbnN1ZGV4LWF1dGgtc2VydmljZSIsImF1ZCI6ImNlbnN1ZGV4LWNsaWVudHMifQ.Ux4orzsYaGThSRnDFBvzmCnebjVrUWV9MkoIftcfCJk",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzkwNDVjNS1hMGZlLTRhOTktYmM1MS03NWE0NGRiNjQzNjciLCJyb2xlIjoiIiwianRpIjoiMjhlNzM4YjMtNGUxOC00OWUzLTkwMjMtZDZkYjVlYjZhNTU1IiwiZXhwIjoxNzYzMzQzODk5LCJpc3MiOiJjZW5zdWRleC1hdXRoLXNlcnZpY2UiLCJhdWQiOiJjZW5zdWRleC1jbGllbnRzIn0.5rC3xvkRFxzGcb4iDhdgyA1YKMYLHMfDbn-PwGrqeXg",
 											"type": "string"
 										}
 									]
