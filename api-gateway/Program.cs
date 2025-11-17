@@ -1,6 +1,7 @@
 using System.Text;
 using api_gateway.Src.Helpers;
 using ClientsService.Grpc;
+using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +9,8 @@ using Microsoft.OpenApi.Models;
 using OrderService;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Env.Load();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -61,31 +64,34 @@ builder.Services.AddSwaggerGen(options =>
     );
 });
 
-// var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET")
-//     ?? throw new InvalidOperationException("JWT_SECRET no está configurado");
+var jwtKey =
+    Environment.GetEnvironmentVariable("JWT_KEY")
+    ?? throw new InvalidOperationException("JWT_KEY no está configurado");
 
-// var keyBytes = Encoding.UTF8.GetBytes(jwtSecret);
+var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
-// if (keyBytes.Length < 32)
-// {
-//     throw new InvalidOperationException(
-//         $"JWT_SECRET debe tener al menos 32 caracteres. Actual: {keyBytes.Length}");
-// }
+if (keyBytes.Length < 32)
+{
+    throw new InvalidOperationException(
+        $"JWT_SECRET debe tener al menos 32 caracteres. Actual: {keyBytes.Length}"
+    );
+}
 
-// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//     .AddJwtBearer(options =>
-//     {
-//         options.TokenValidationParameters = new TokenValidationParameters
-//         {
-//             ValidateIssuer = true,
-//             ValidateAudience = true,
-//             ValidateLifetime = true,
-//             ValidateIssuerSigningKey = true,
-//             ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
-//             ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
-//             IssuerSigningKey = new SymmetricSecurityKey(keyBytes)
-//         };
-//     });
+builder
+    .Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+            ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+            IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+        };
+    });
 
 builder.Services.AddAuthorization();
 
@@ -102,6 +108,16 @@ builder.Services.AddGrpcClient<ClientsGrpc.ClientsGrpcClient>(options =>
         Environment.GetEnvironmentVariable("CLIENT_SERVICE_URL") ?? "https://localhost:7181"
     );
 });
+
+builder.Services.AddHttpClient(
+    "AuthService",
+    client =>
+    {
+        client.BaseAddress = new Uri(
+            Environment.GetEnvironmentVariable("AUTH_SERVICE_URL") ?? "http://localhost:5144"
+        );
+    }
+);
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
