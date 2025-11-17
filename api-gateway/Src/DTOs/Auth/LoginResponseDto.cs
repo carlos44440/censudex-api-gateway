@@ -11,11 +11,6 @@ namespace api_gateway.Src.DTOs.Auth
         public string Token { get; set; } = string.Empty;
 
         /// <summary>
-        /// Fecha de expiración del token.
-        /// </summary>
-        public DateTime Expiration { get; set; }
-
-        /// <summary>
         /// Identificador del usuario.
         /// </summary>
         public string UserId { get; set; } = string.Empty;

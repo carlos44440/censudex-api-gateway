@@ -2,6 +2,7 @@ using api_gateway.Src.DTOs.Clients;
 using api_gateway.Src.Helpers;
 using ClientsService.Grpc;
 using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_gateway.Src.Controllers
