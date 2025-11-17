@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using api_gateway.Src.Helpers;
 using ClientsService.Grpc;
@@ -90,6 +91,8 @@ builder
             ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
             ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
             IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
+            NameClaimType = ClaimTypes.Name,
+            RoleClaimType = ClaimTypes.Role,
         };
     });
 
