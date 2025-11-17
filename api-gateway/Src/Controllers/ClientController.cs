@@ -1,7 +1,6 @@
 using api_gateway.Src.DTOs.Clients;
 using api_gateway.Src.Helpers;
 using ClientsService.Grpc;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.AspNetCore.Mvc;
 
