@@ -40,7 +40,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="createOrder">Peticion con los datos para crear un pedido.</param>
         /// <returns>Retorna 200 ok con el pedido creado en caso de exito o el error correspondiente en caso de fallo.</returns>
         [HttpPost("createOrder")]
-        // [Authorize(Roles = "CLIENT,ADMIN")]
+        [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderDto createOrder)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -88,7 +88,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="orderId">Id del pedido por consultar.</param>
         /// <returns>Retorna 200 ok con el estado del pedido en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpGet("checkOrderStatus/{orderId}")]
-        // [Authorize(Roles = "CLIENT,ADMIN")]
+        [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CheckOrderStatusAsync(string orderId)
         {
             try
@@ -128,7 +128,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="updateOrderStatus">Peticion con los datos necesarios para la actualizacion.</param>
         /// <returns>Retorna 200 ok con el pedido actualizado en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpPut("updateOrderStatus/{orderId}")]
-        // [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateOrderStatusAsync(string orderId, [FromBody] UpdateOrderStatusDto updateOrderStatus)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -162,7 +162,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="cancelOrderDto">Peticion con los datos necesarios para cancelar un pedido.</param>
         /// <returns>Retorna 200 ok con el pedido actualizado en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpPut("cancelOrder/{orderId}")]
-        // [Authorize(Roles = "CLIENT,ADMIN")]
+        [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> CancelOrderAsync(string orderId, [FromBody] CancelOrderDto cancelOrderDto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -210,7 +210,7 @@ namespace api_gateway.Src.Controllers
         /// <param name="queryObject">Filtros para los pedidos.</param>
         /// <returns>Retorna 200 ok con los pedidos filtrados en caso de exito o el error que corresponda en caso de fallo.</returns>
         [HttpGet("getOrders")]
-        // [Authorize(Roles = "CLIENT,ADMIN")]
+        [Authorize(Roles = "CLIENT,ADMIN")]
         public async Task<IActionResult> GetOrdersAsync([FromQuery] QueryObject queryObject)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -230,8 +230,8 @@ namespace api_gateway.Src.Controllers
                 {
                     OrderId = queryObject.OrderId ?? "",
                     CustomerId = queryObject.CustomerId ?? "",
-                    InitialOrderDate = queryObject.InitialOrderDate?.ToString() ?? "",
-                    FinalOrderDate = queryObject.FinalOrderDate?.ToString() ?? ""
+                    InitialOrderDate = queryObject.InitialOrderDate?.ToString("O") ?? "",
+                    FinalOrderDate = queryObject.FinalOrderDate?.ToString("O") ?? ""
                 };
 
                 var getOrdersRequest = new GetOrdersRequest

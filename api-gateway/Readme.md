@@ -25,7 +25,7 @@ flowchart TD
 
     subgraph Microservices [Microservicios]
         Router -->|HTTP| AuthSvc[Auth Service
-        HTTP:?]
+        HTTP:5144]
         Translator -->|gRPC| ProductsSvc[Products Service
         gRPC:50052]
         Translator -->|gRPC| ClientSvc[Client Service
@@ -130,7 +130,7 @@ Se encarga de enviar cada solicitud al microservicio adecuado según el endpoint
 - **Docker Desktop**: [Download](https://www.docker.com/products/docker-desktop)
 - **VS Code**: [Download](https://code.visualstudio.com/)
 - **Todos los microservicios deben estar corriendo**:
-  - Auth Service (puerto ?)
+  - Auth Service (puerto 5144)
   - Products Service (puerto 50052)
   - Clients Service (puerto 7181)
   - Orders Service (puerto 50051)
@@ -154,13 +154,13 @@ PRODUCT_SERVICE_URL=http://localhost:50052
 CLIENT_SERVICE_URL=https://localhost:7181
 
 # JWT Configuration
-JWT_SECRET=my-super-secret-key-at-least-32-characters-long-for-jwt-validation!
+JWT_KEY=your-super-secret-key-min-32-characters-long-for-HS256
 JWT_ISSUER=CensudexAPIGateway
 JWT_AUDIENCE=CensudexClients
 JWT_EXPIRATION_MINUTES=60
 
 # Auth Service URL (HTTP)
-AUTH_SERVICE_URL=http://localhost:?
+AUTH_SERVICE_URL=http://localhost:5144
 ```
 
 ### 3. Instalar Dependencias
